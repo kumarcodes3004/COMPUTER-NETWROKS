@@ -20,8 +20,8 @@ int main()
 {
     // Two random prime numbers
     double p = 3;
-    double q = 7;
-
+    double q = 11;
+    // cin>>p>>q;
     // First part of public key:
     double n = p * q;
 
@@ -38,27 +38,36 @@ int main()
         else
             e++;
     }
+    cout << e << endl;
 
-    // Private key (d stands for decrypt)
-    // choosing d such that it satisfies
-    // d*e = 1 + k * totient
-    int k = 2; // A constant value
-    double d = (1 + (k * phi)) / e;
+    double d, k = 0;
+    while (1)
+    {
+        double x = ((1 + k * phi) / e);
+        if (int(x) == x)
+        {
+            d = x;
+            break;
+        }
 
-    // Message to be encrypted
-    double msg = 12;
-
-    cout << "Message data = " << msg;
-
+        else
+            k++;
+    }
+  
+    cout << d << e << endl;
+    double msg = 32;
+    // cin>>msg;
+    printf("Message data = %lf", msg);
+    // cout<<msg<<endl;
     // Encryption c = (msg ^ e) % n
     double c = pow(msg, e);
     c = fmod(c, n);
-    cout << "Encrypted data = " << c;
+    printf("\nEncrypted data = %lf", c);
 
     // Decryption m = (c ^ d) % n
     double m = pow(c, d);
     m = fmod(m, n);
-    cout << "Original Message Sent = " << m;
-
+    printf("\nOriginal Message Sent = %lf", m);
+    // cout<<m<<endl;
     return 0;
 }
